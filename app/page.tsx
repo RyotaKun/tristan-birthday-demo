@@ -189,7 +189,7 @@ export default function Home() {
             {/* Avatar */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/tristan-avatar.png"
+              src="/tristan-zombie.png"
               alt="Tristan McSwain"
               style={{
                 width: 160,
