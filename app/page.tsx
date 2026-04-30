@@ -489,7 +489,7 @@ export default function Home() {
                 textAlign: "center",
                 marginBottom: 24,
                 opacity: 0.8,
-              }}>The wave that followed</p>
+              }}>14 initiatives — one wave</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
                 {[
                   { id: "CXMI-531", name: "AI-Assisted Jira Story Creation" },
@@ -504,6 +504,8 @@ export default function Home() {
                   { id: "CXMI-540", name: "Phoenix Deployment Integration" },
                   { id: "CXMI-541", name: "SiteAssistant Bot" },
                   { id: "CXMI-542", name: "AI Orchestrator Team", tristan: true },
+                  { id: "CXMI-603", name: "PromptGraph — Prompt Optimizer" },
+                  { id: "CXMI-604", name: "SuperSecurity — AI Command Safety Layer" },
                 ].map((item) => (
                   <div key={item.id} style={{
                     background: item.tristan ? "rgba(108,99,255,0.08)" : "rgba(255,255,255,0.02)",
