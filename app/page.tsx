@@ -141,6 +141,67 @@ export default function Home() {
             30 April · 2026
           </p>
 
+          {/* Avatar with orbital rings */}
+          <div style={{ position: "relative", marginBottom: 40, width: 160, height: 160 }}>
+            {/* Outer orbit */}
+            <div style={{
+              position: "absolute",
+              inset: -28,
+              borderRadius: "50%",
+              border: "1px solid rgba(108,99,255,0.25)",
+              animation: "spin-slow 18s linear infinite",
+            }}>
+              <div style={{
+                position: "absolute",
+                top: -4, left: "50%",
+                width: 8, height: 8,
+                borderRadius: "50%",
+                background: "var(--cyan)",
+                boxShadow: "0 0 10px var(--cyan), 0 0 20px var(--cyan)",
+                transform: "translateX(-50%)",
+              }} />
+            </div>
+            {/* Inner orbit */}
+            <div style={{
+              position: "absolute",
+              inset: -14,
+              borderRadius: "50%",
+              border: "1px solid rgba(0,245,255,0.15)",
+              animation: "spin-slow 10s linear infinite reverse",
+            }}>
+              <div style={{
+                position: "absolute",
+                bottom: -3, left: "50%",
+                width: 6, height: 6,
+                borderRadius: "50%",
+                background: "var(--orange)",
+                boxShadow: "0 0 8px var(--orange)",
+                transform: "translateX(-50%)",
+              }} />
+            </div>
+            {/* Glow backdrop */}
+            <div style={{
+              position: "absolute",
+              inset: -8,
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(108,99,255,0.3) 0%, transparent 70%)",
+            }} />
+            {/* Avatar */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/tristan-avatar.png"
+              alt="Tristan McSwain"
+              style={{
+                width: 160,
+                height: 160,
+                borderRadius: "50%",
+                border: "3px solid rgba(108,99,255,0.6)",
+                boxShadow: "0 0 24px rgba(108,99,255,0.5), 0 0 48px rgba(108,99,255,0.2)",
+                display: "block",
+              }}
+            />
+          </div>
+
           <h1 className="gradient-text" style={{
             fontSize: "clamp(52px, 10vw, 108px)",
             fontWeight: 900,
