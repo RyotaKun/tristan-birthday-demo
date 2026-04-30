@@ -1,341 +1,585 @@
-import { Playfair_Display, Libre_Baskerville } from "next/font/google";
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-const baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-baskerville",
-  display: "swap",
-});
+"use client";
+import { useEffect, useRef } from "react";
 
 const milestones = [
   {
     label: "Before Tech",
     title: "Chef",
-    body: "Tristan started his career in the kitchen — no formal tech background, just curiosity and an appetite for hard problems.",
+    body: "Started in the kitchen — no formal tech background, just curiosity and appetite for hard problems.",
+    color: "var(--indigo)",
   },
   {
     label: "2017",
     title: "Panviva — Support Engineer",
-    body: "Entered Panviva through the support team. Learned the product from the ground up: production issues, customer pain, operational reality before code.",
+    body: "Entered through the support team. Learned the product from the ground up: production issues, customer pain, operational reality before code.",
+    color: "var(--cyan)",
   },
   {
     label: "2018–2021",
     title: "Developer → Senior Developer → Tech Lead",
-    body: "Self-driven through real-world problems. Grew into technical leadership by solving the hard, unglamorous foundations: TLS, app server reliability, platform compatibility.",
+    body: "Self-driven through real-world problems. Grew into technical leadership solving the hard, unglamorous foundations: TLS, app server reliability, platform compatibility.",
+    color: "var(--orange)",
   },
   {
     label: "2022–2023",
     title: "Architect — Core Modernisation",
-    body: "Led the architectural breakthroughs that made Core Modernisation possible: decoupled document type from layout, enforced forward-only design, and enabled safe transformation of a legacy system.",
+    body: "Led the architectural breakthroughs that made Core Modernisation possible: decoupled document type from layout, enforced forward-only design, enabled safe transformation of a legacy system.",
+    color: "var(--indigo)",
   },
   {
     label: "2024",
     title: "AKS & Containerisation (Phoenix)",
     body: "Drove Panviva's Kubernetes journey end-to-end — Helm orchestration, secrets management, environment parity from Dev to Prod. Not just working, but operationally sane.",
+    color: "var(--cyan)",
   },
   {
     label: "2025–2026",
     title: "Principal Engineer & AI Champion",
     body: "Authored ADR-037, presented \u201cCreating a Bright Blue Sky with AI\u201d, and proved that AI multiplies good engineering. It doesn\u2019t replace it.",
+    color: "var(--orange)",
   },
 ];
 
 const attributes = [
-  {
-    numeral: "I",
-    title: "Systems Thinker",
-    body: "Balances content, identity, infrastructure, and migration semantics simultaneously. Never optimises one layer at the expense of another.",
-  },
-  {
-    numeral: "II",
-    title: "AI Pioneer",
-    body: "One of the first at Upland to wield AI as a real engineering tool — planning, architecture review, migration reasoning. His motto: AI multiplies good engineering.",
-  },
-  {
-    numeral: "III",
-    title: "Security Champion",
-    body: "Short-lived purpose-specific JWTs, closed multi-tenant data risks, unified auth — security evolved with the platform, not as an afterthought.",
-  },
-  {
-    numeral: "IV",
-    title: "Self-Made Engineer",
-    body: "No formal CS degree. Chef → support → developer → principal engineer. Proof that non-traditional paths create exceptional engineers.",
-  },
-  {
-    numeral: "V",
-    title: "Mentor & Leader",
-    body: "Low ceremony, high signal. Advocates strongly for growing engineers internally — because that was once his own path.",
-  },
-  {
-    numeral: "VI",
-    title: "Big Life Moves",
-    body: "Melbourne → Townsville → Canada. Navigated major transitions while sustaining technical excellence. Family always comes first.",
-  },
+  { numeral: "I", title: "Systems Thinker", body: "Balances content, identity, infrastructure, and migration semantics simultaneously. Never optimises one layer at the expense of another.", color: "var(--indigo)" },
+  { numeral: "II", title: "AI Pioneer", body: "One of the first at Upland to wield AI as a real engineering tool. His motto: AI multiplies good engineering, it doesn\u2019t replace it.", color: "var(--cyan)" },
+  { numeral: "III", title: "Security Champion", body: "Short-lived purpose-specific JWTs, closed multi-tenant data risks, unified auth \u2014 security evolved with the platform, not as an afterthought.", color: "var(--orange)" },
+  { numeral: "IV", title: "Self-Made Engineer", body: "Chef \u2192 support \u2192 developer \u2192 principal engineer. No formal CS degree. Proof that non-traditional paths create exceptional engineers.", color: "var(--magenta)" },
+  { numeral: "V", title: "Mentor & Leader", body: "Low ceremony, high signal. Advocates strongly for growing engineers internally \u2014 because that was once his own path.", color: "var(--indigo)" },
+  { numeral: "VI", title: "Big Life Moves", body: "Melbourne \u2192 Townsville \u2192 Canada. Navigated major transitions while sustaining technical excellence. Family always comes first.", color: "var(--cyan)" },
 ];
 
-export default function Home() {
+function Stars() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 180 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.4 + 0.3,
+      speed: Math.random() * 0.004 + 0.002,
+      phase: Math.random() * Math.PI * 2,
+    }));
+
+    let frame: number;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const t = Date.now() * 0.001;
+      stars.forEach((s) => {
+        const alpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed * 200 + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,200,255,${alpha})`;
+        ctx.fill();
+      });
+      frame = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   return (
-    <main
-      className={`${playfair.variable} ${baskerville.variable}`}
-      style={{
-        backgroundColor: "#0e0e0e",
-        color: "#e8e0d4",
-        fontFamily: "var(--font-baskerville), Georgia, serif",
-        minHeight: "100vh",
-      }}
-    >
-      {/* ── Gold rule top ── */}
-      <div style={{ height: 3, background: "linear-gradient(90deg, transparent, #C4922A 30%, #E8B84B 50%, #C4922A 70%, transparent)" }} />
-
-      {/* ── Hero ── */}
-      <header style={{ maxWidth: 820, margin: "0 auto", padding: "88px 32px 72px", textAlign: "center" }}>
-        <p style={{
-          fontFamily: "var(--font-baskerville), Georgia, serif",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          fontSize: 11,
-          color: "#C4922A",
-          marginBottom: 32,
-          fontStyle: "italic",
-        }}>
-          30 April · 2026
-        </p>
-
-        <h1 style={{
-          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-          fontSize: "clamp(52px, 9vw, 96px)",
-          fontWeight: 700,
-          lineHeight: 1.05,
-          letterSpacing: "-0.02em",
-          color: "#f5ede0",
-          margin: 0,
-          marginBottom: 8,
-        }}>
-          Tristan McSwain
-        </h1>
-
-        <p style={{
-          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-          fontSize: "clamp(16px, 2.5vw, 22px)",
-          fontStyle: "italic",
-          color: "#C4922A",
-          letterSpacing: "0.04em",
-          marginBottom: 32,
-        }}>
-          Principal Engineer · Panviva
-        </p>
-
-        {/* Decorative rule */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 36 }}>
-          <div style={{ flex: 1, maxWidth: 120, height: 1, background: "#C4922A", opacity: 0.4 }} />
-          <div style={{ width: 6, height: 6, background: "#C4922A", transform: "rotate(45deg)" }} />
-          <div style={{ flex: 1, maxWidth: 120, height: 1, background: "#C4922A", opacity: 0.4 }} />
-        </div>
-
-        <p style={{
-          fontSize: "clamp(15px, 2vw, 19px)",
-          lineHeight: 1.75,
-          color: "#c2b89e",
-          maxWidth: 620,
-          margin: "0 auto",
-        }}>
-          From chef to Principal Engineer — the architect who modernised Panviva Core,
-          containerised it on AKS, and showed the whole team what AI is truly capable of.
-        </p>
-      </header>
-
-      {/* ── Timeline ── */}
-      <section style={{ maxWidth: 760, margin: "0 auto", padding: "0 32px 96px" }}>
-        <SectionHeading>The Journey</SectionHeading>
-
-        <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
-          {milestones.map((m, i) => (
-            <li
-              key={i}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "140px 1px 1fr",
-                gap: "0 28px",
-                marginBottom: i < milestones.length - 1 ? 0 : 0,
-              }}
-            >
-              {/* Year label */}
-              <div style={{ paddingTop: 2, paddingBottom: 32, textAlign: "right" }}>
-                <span style={{
-                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-                  fontSize: 13,
-                  fontStyle: "italic",
-                  color: "#C4922A",
-                  letterSpacing: "0.03em",
-                }}>
-                  {m.label}
-                </span>
-              </div>
-
-              {/* Timeline spine */}
-              <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#C4922A", flexShrink: 0, marginTop: 4 }} />
-                {i < milestones.length - 1 && (
-                  <div style={{ flex: 1, width: 1, background: "linear-gradient(to bottom, #C4922A44, #C4922A11)", minHeight: 48 }} />
-                )}
-              </div>
-
-              {/* Content */}
-              <div style={{ paddingBottom: 40 }}>
-                <h3 style={{
-                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: "#f0e8d8",
-                  margin: "0 0 8px",
-                  lineHeight: 1.3,
-                }}>
-                  {m.title}
-                </h3>
-                <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.8, color: "#9e9080" }}>
-                  {m.body}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* ── Attributes grid ── */}
-      <section style={{ background: "#131210", padding: "80px 32px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <SectionHeading>What Makes Tristan Remarkable</SectionHeading>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 1,
-            border: "1px solid #2a2520",
-            overflow: "hidden",
-          }}>
-            {attributes.map((a, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: "36px 28px",
-                  borderRight: "1px solid #2a2520",
-                  borderBottom: "1px solid #2a2520",
-                  position: "relative",
-                }}
-              >
-                <span style={{
-                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-                  fontSize: 11,
-                  color: "#C4922A",
-                  letterSpacing: "0.15em",
-                  display: "block",
-                  marginBottom: 12,
-                  opacity: 0.8,
-                }}>
-                  {a.numeral}
-                </span>
-                <h3 style={{
-                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: "#f0e8d8",
-                  margin: "0 0 10px",
-                }}>
-                  {a.title}
-                </h3>
-                <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.8, color: "#7d7060" }}>
-                  {a.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Quote ── */}
-      <section style={{ maxWidth: 700, margin: "0 auto", padding: "96px 32px 80px", textAlign: "center" }}>
-        <div style={{ marginBottom: 28 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 28 }}>
-            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "#C4922A", opacity: 0.3 }} />
-            <div style={{ width: 5, height: 5, background: "#C4922A", transform: "rotate(45deg)" }} />
-            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "#C4922A", opacity: 0.3 }} />
-          </div>
-        </div>
-
-        <blockquote style={{ margin: 0 }}>
-          <p style={{
-            fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(20px, 3vw, 28px)",
-            fontStyle: "italic",
-            lineHeight: 1.65,
-            color: "#d8cfc2",
-            margin: "0 0 28px",
-          }}>
-            "We wouldn't be here today if Tristan didn't push us,
-            show us what AI is capable of. Today we honour that —
-            and the remarkable journey of the person behind it all."
-          </p>
-          <cite style={{
-            display: "block",
-            fontStyle: "normal",
-            fontSize: 12,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "#C4922A",
-          }}>
-            The Panviva Team
-          </cite>
-        </blockquote>
-      </section>
-
-      {/* ── Happy Birthday closer ── */}
-      <div style={{ textAlign: "center", padding: "0 32px 80px" }}>
-        <p style={{
-          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-          fontSize: "clamp(32px, 5vw, 52px)",
-          fontWeight: 700,
-          color: "#C4922A",
-          letterSpacing: "-0.01em",
-          margin: 0,
-        }}>
-          Happy Birthday, Tristan.
-        </p>
-      </div>
-
-      {/* ── Gold rule bottom ── */}
-      <div style={{ height: 3, background: "linear-gradient(90deg, transparent, #C4922A 30%, #E8B84B 50%, #C4922A 70%, transparent)" }} />
-
-      <footer style={{ textAlign: "center", padding: "20px 32px", fontSize: 11, color: "#3a3530", letterSpacing: "0.1em" }}>
-        Built with the SiteAssistant Bot · Powered by Claude
-      </footer>
-    </main>
+    <canvas
+      ref={canvasRef}
+      style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 }}
+    />
   );
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
+export default function Home() {
+  return (
+    <>
+      <Stars />
+      <main style={{ position: "relative", zIndex: 1 }}>
+
+        {/* ── HERO ── */}
+        <section style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: "80px 24px",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          {/* Supernova glow */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(108,99,255,0.18) 0%, rgba(0,245,255,0.08) 40%, transparent 70%)",
+            animation: "pulse-glow 4s ease-in-out infinite",
+            pointerEvents: "none",
+          }} />
+
+          <p style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 11,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--cyan)",
+            marginBottom: 28,
+            opacity: 0.8,
+          }}>
+            30 April · 2026
+          </p>
+
+          <h1 className="gradient-text" style={{
+            fontSize: "clamp(52px, 10vw, 108px)",
+            fontWeight: 900,
+            lineHeight: 1.0,
+            letterSpacing: "-0.03em",
+            marginBottom: 24,
+          }}>
+            Happy Birthday,<br />Tristan
+          </h1>
+
+          <p style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: "clamp(11px, 1.8vw, 15px)",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "var(--cyan)",
+            marginBottom: 48,
+          }}>
+            Principal Engineer&nbsp;&nbsp;·&nbsp;&nbsp;AI Champion&nbsp;&nbsp;·&nbsp;&nbsp;Game Changer
+          </p>
+
+          {/* Neon divider */}
+          <div style={{ display: "flex", alignItems: "center", gap: 16, width: "100%", maxWidth: 400, marginBottom: 48 }}>
+            <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, transparent, var(--indigo))" }} />
+            <div style={{
+              width: 8, height: 8,
+              background: "var(--cyan)",
+              borderRadius: "50%",
+              boxShadow: "0 0 12px var(--cyan), 0 0 24px var(--cyan)",
+            }} />
+            <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, var(--indigo), transparent)" }} />
+          </div>
+
+          <p style={{
+            fontSize: "clamp(15px, 2vw, 20px)",
+            lineHeight: 1.8,
+            color: "rgba(240,240,255,0.6)",
+            maxWidth: 640,
+          }}>
+            From chef to Principal Engineer — the architect who modernised Panviva Core,
+            containerised it on AKS, and showed the entire team what AI is truly capable of.
+          </p>
+
+          {/* Scroll hint */}
+          <div style={{ position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)" }}>
+            <div style={{
+              width: 1,
+              height: 48,
+              background: "linear-gradient(to bottom, var(--indigo), transparent)",
+              margin: "0 auto",
+            }} />
+          </div>
+        </section>
+
+        {/* ── MANIFESTO ── */}
+        <section style={{ padding: "0 24px 96px" }}>
+          <div style={{
+            maxWidth: 860,
+            margin: "0 auto",
+            background: "rgba(108,99,255,0.06)",
+            borderLeft: "4px solid var(--orange)",
+            padding: "48px 48px 48px 44px",
+            position: "relative",
+            boxShadow: "0 0 60px rgba(255,107,53,0.08)",
+          }}>
+            <div style={{
+              position: "absolute",
+              top: 0, left: 0, right: 0,
+              height: 1,
+              background: "linear-gradient(90deg, var(--orange), transparent)",
+            }} />
+            <p style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: 10,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "var(--orange)",
+              marginBottom: 20,
+            }}>
+              Transmission — Global AI Revolution
+            </p>
+            <p style={{
+              fontSize: "clamp(18px, 2.8vw, 26px)",
+              fontWeight: 700,
+              lineHeight: 1.6,
+              color: "var(--text)",
+            }}>
+              We are living through a once-in-a-generation shift.
+              The kind that rewrites industries, careers, and the world.
+              And you&apos;re not just watching —{" "}
+              <span style={{ color: "var(--orange)" }}>you&apos;re leading it.</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ── TIMELINE ── */}
+        <section style={{ padding: "0 24px 96px" }}>
+          <div style={{ maxWidth: 800, margin: "0 auto" }}>
+            <SectionHeading label="CAREER TIMELINE" color="var(--indigo)" />
+
+            <div style={{ position: "relative" }}>
+              {/* Spine */}
+              <div style={{
+                position: "absolute",
+                left: 32,
+                top: 0,
+                bottom: 0,
+                width: 1,
+                background: "linear-gradient(to bottom, var(--indigo), var(--cyan), var(--orange))",
+                opacity: 0.3,
+              }}>
+                {/* Animated pulse dot */}
+                <div style={{
+                  position: "absolute",
+                  left: -3,
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "var(--cyan)",
+                  boxShadow: "0 0 8px var(--cyan)",
+                  animation: "data-pulse 3s linear infinite",
+                }} />
+              </div>
+
+              {milestones.map((m, i) => (
+                <div key={i} style={{
+                  display: "flex",
+                  gap: 32,
+                  marginBottom: 40,
+                  paddingLeft: 0,
+                }}>
+                  {/* Dot on spine */}
+                  <div style={{
+                    position: "relative",
+                    width: 65,
+                    flexShrink: 0,
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "flex-end",
+                    paddingRight: 0,
+                  }}>
+                    <div style={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: "50%",
+                      background: m.color,
+                      boxShadow: `0 0 12px ${m.color}, 0 0 24px ${m.color}`,
+                      marginTop: 4,
+                      flexShrink: 0,
+                      marginRight: -6,
+                    }} />
+                  </div>
+
+                  {/* Card */}
+                  <div className={i % 3 === 0 ? "glow-border-indigo" : i % 3 === 1 ? "glow-border-cyan" : "glow-border-orange"} style={{
+                    flex: 1,
+                    background: "rgba(255,255,255,0.02)",
+                    padding: "20px 24px",
+                    borderRadius: 2,
+                  }}>
+                    <p style={{
+                      fontFamily: "'Courier New', monospace",
+                      fontSize: 10,
+                      letterSpacing: "0.2em",
+                      color: m.color,
+                      marginBottom: 8,
+                      textTransform: "uppercase",
+                    }}>
+                      {m.label}
+                    </p>
+                    <h3 style={{ fontSize: 17, fontWeight: 700, color: "var(--text)", marginBottom: 8 }}>
+                      {m.title}
+                    </h3>
+                    <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "var(--dim)" }}>
+                      {m.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── ATTRIBUTES ── */}
+        <section style={{
+          background: "rgba(108,99,255,0.04)",
+          borderTop: "1px solid rgba(108,99,255,0.15)",
+          borderBottom: "1px solid rgba(108,99,255,0.15)",
+          padding: "80px 24px",
+        }}>
+          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+            <SectionHeading label="WHAT MAKES TRISTAN REMARKABLE" color="var(--cyan)" />
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: 16,
+            }}>
+              {attributes.map((a, i) => (
+                <div key={i} style={{
+                  background: "rgba(255,255,255,0.02)",
+                  border: `1px solid rgba(${a.color === "var(--indigo)" ? "108,99,255" : a.color === "var(--cyan)" ? "0,245,255" : a.color === "var(--orange)" ? "255,107,53" : "255,0,110"},0.25)`,
+                  padding: "28px 24px",
+                  borderRadius: 2,
+                  transition: "box-shadow 0.3s",
+                }}>
+                  <span style={{
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: 22,
+                    fontWeight: 700,
+                    color: "var(--orange)",
+                    display: "block",
+                    marginBottom: 12,
+                    opacity: 0.9,
+                  }}>
+                    {a.numeral}
+                  </span>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--text)", marginBottom: 10 }}>
+                    {a.title}
+                  </h3>
+                  <p style={{ fontSize: 13, lineHeight: 1.8, color: "var(--dim)" }}>
+                    {a.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── GLOBAL MOMENT ── */}
+        <section style={{
+          padding: "100px 24px",
+          textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,245,255,0.06) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+
+          <p style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 10,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--cyan)",
+            marginBottom: 24,
+            opacity: 0.7,
+          }}>
+            Melbourne → Townsville → Canada → The World
+          </p>
+
+          <h2 className="gradient-text" style={{
+            fontSize: "clamp(40px, 7vw, 80px)",
+            fontWeight: 900,
+            lineHeight: 1.05,
+            letterSpacing: "-0.03em",
+            marginBottom: 40,
+          }}>
+            This Is the Moment
+          </h2>
+
+          {/* Globe SVG */}
+          <div style={{ marginBottom: 48, opacity: 0.85 }}>
+            <svg width="280" height="160" viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Globe outline */}
+              <ellipse cx="140" cy="80" rx="100" ry="60" stroke="rgba(108,99,255,0.3)" strokeWidth="1" />
+              <ellipse cx="140" cy="80" rx="60" ry="60" stroke="rgba(108,99,255,0.15)" strokeWidth="1" />
+              <ellipse cx="140" cy="80" rx="20" ry="60" stroke="rgba(108,99,255,0.15)" strokeWidth="1" />
+              <line x1="40" y1="80" x2="240" y2="80" stroke="rgba(108,99,255,0.2)" strokeWidth="1" />
+              <line x1="140" y1="20" x2="140" y2="140" stroke="rgba(108,99,255,0.2)" strokeWidth="1" />
+              {/* Latitude lines */}
+              <ellipse cx="140" cy="55" rx="87" ry="15" stroke="rgba(108,99,255,0.12)" strokeWidth="1" />
+              <ellipse cx="140" cy="105" rx="87" ry="15" stroke="rgba(108,99,255,0.12)" strokeWidth="1" />
+              {/* Glowing nodes */}
+              {[
+                { cx: 100, cy: 65, c: "var(--indigo)" },
+                { cx: 180, cy: 70, c: "var(--cyan)" },
+                { cx: 140, cy: 90, c: "var(--orange)" },
+                { cx: 80, cy: 95, c: "var(--magenta)" },
+                { cx: 200, cy: 55, c: "var(--cyan)" },
+                { cx: 155, cy: 50, c: "var(--indigo)" },
+              ].map((n, i) => (
+                <g key={i}>
+                  <circle cx={n.cx} cy={n.cy} r="8" fill={n.c} opacity="0.15" />
+                  <circle cx={n.cx} cy={n.cy} r="3" fill={n.c} opacity="0.9" />
+                </g>
+              ))}
+              {/* Connection lines */}
+              <line x1="100" y1="65" x2="180" y2="70" stroke="rgba(0,245,255,0.25)" strokeWidth="1" strokeDasharray="3,3" />
+              <line x1="140" y1="90" x2="200" y2="55" stroke="rgba(108,99,255,0.25)" strokeWidth="1" strokeDasharray="3,3" />
+              <line x1="80" y1="95" x2="155" y2="50" stroke="rgba(255,107,53,0.25)" strokeWidth="1" strokeDasharray="3,3" />
+            </svg>
+          </div>
+
+          <p style={{
+            fontSize: "clamp(16px, 2.2vw, 21px)",
+            lineHeight: 1.8,
+            color: "rgba(240,240,255,0.7)",
+            maxWidth: 620,
+            margin: "0 auto 32px",
+          }}>
+            The AI revolution is rewriting every industry, every company,
+            every career. Tristan saw it first. Built for it first.
+            And brought the whole team with him.
+          </p>
+
+          <p style={{
+            fontSize: "clamp(16px, 2vw, 20px)",
+            fontWeight: 700,
+            color: "var(--cyan)",
+            letterSpacing: "0.05em",
+            textShadow: "0 0 20px var(--cyan), 0 0 40px rgba(0,245,255,0.4)",
+          }}>
+            The future ships with your name on it.
+          </p>
+        </section>
+
+        {/* ── MESSAGE ── */}
+        <section style={{
+          padding: "80px 24px 96px",
+          textAlign: "center",
+          background: "rgba(255,107,53,0.03)",
+          borderTop: "1px solid rgba(255,107,53,0.1)",
+        }}>
+          <div style={{ maxWidth: 680, margin: "0 auto" }}>
+            <SectionHeading label="FROM THE TEAM" color="var(--orange)" />
+
+            {/* Spark decoration */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 36 }}>
+              {["var(--indigo)", "var(--cyan)", "var(--orange)", "var(--magenta)", "var(--indigo)"].map((c, i) => (
+                <div key={i} style={{
+                  width: 4,
+                  height: 4,
+                  borderRadius: "50%",
+                  background: c,
+                  boxShadow: `0 0 8px ${c}`,
+                  opacity: 0.8,
+                }} />
+              ))}
+            </div>
+
+            <blockquote>
+              <p style={{
+                fontSize: "clamp(18px, 2.5vw, 24px)",
+                fontStyle: "italic",
+                lineHeight: 1.7,
+                color: "rgba(240,240,255,0.85)",
+                marginBottom: 28,
+              }}>
+                &ldquo;We wouldn&apos;t be here today if Tristan didn&apos;t push us,
+                show us what AI is capable of. Today we honour that —
+                and the remarkable journey of the person behind it all.&rdquo;
+              </p>
+              <cite style={{
+                fontFamily: "'Courier New', monospace",
+                fontStyle: "normal",
+                fontSize: 11,
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "var(--orange)",
+              }}>
+                With respect, pride, and excitement — The Panviva Team
+              </cite>
+            </blockquote>
+          </div>
+        </section>
+
+        {/* ── CLOSER ── */}
+        <section style={{ textAlign: "center", padding: "80px 24px 64px", position: "relative" }}>
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(108,99,255,0.1) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <h2 className="gradient-text" style={{
+            fontSize: "clamp(40px, 7vw, 72px)",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+          }}>
+            Happy Birthday, Tristan.
+          </h2>
+        </section>
+
+        {/* ── FOOTER ── */}
+        <footer style={{
+          textAlign: "center",
+          padding: "20px 24px 32px",
+          borderTop: "1px solid rgba(108,99,255,0.1)",
+        }}>
+          <div style={{
+            width: 5, height: 5,
+            borderRadius: "50%",
+            background: "var(--indigo)",
+            boxShadow: "0 0 8px var(--indigo)",
+            margin: "0 auto 12px",
+          }} />
+          <p style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 10,
+            letterSpacing: "0.2em",
+            color: "rgba(240,240,255,0.2)",
+            textTransform: "uppercase",
+          }}>
+            2026 · Built with pride
+          </p>
+        </footer>
+      </main>
+    </>
+  );
+}
+
+function SectionHeading({ label, color }: { label: string; color: string }) {
   return (
     <div style={{ textAlign: "center", marginBottom: 56 }}>
-      <h2 style={{
-        fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
-        fontSize: "clamp(22px, 3.5vw, 32px)",
-        fontWeight: 700,
-        color: "#f0e8d8",
-        margin: "0 0 16px",
-        letterSpacing: "-0.01em",
+      <p style={{
+        fontFamily: "'Courier New', monospace",
+        fontSize: 10,
+        letterSpacing: "0.35em",
+        textTransform: "uppercase",
+        color,
+        marginBottom: 12,
+        opacity: 0.8,
       }}>
-        {children}
-      </h2>
+        {label}
+      </p>
       <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "center" }}>
-        <div style={{ width: 40, height: 1, background: "#C4922A", opacity: 0.4 }} />
-        <div style={{ width: 4, height: 4, background: "#C4922A", transform: "rotate(45deg)" }} />
-        <div style={{ width: 40, height: 1, background: "#C4922A", opacity: 0.4 }} />
+        <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, transparent, ${color})` }} />
+        <div style={{
+          width: 6, height: 6,
+          borderRadius: "50%",
+          background: color,
+          boxShadow: `0 0 10px ${color}`,
+        }} />
+        <div style={{ width: 60, height: 1, background: `linear-gradient(90deg, ${color}, transparent)` }} />
       </div>
     </div>
   );
