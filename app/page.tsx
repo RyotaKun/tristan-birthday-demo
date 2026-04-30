@@ -492,28 +492,47 @@ export default function Home() {
               }}>The wave that followed</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
                 {[
-                  { id: "CXMI-535", name: "Claude Code Shared Learning System" },
-                  { id: "CXMI-541", name: "SiteAssistant Bot" },
-                  { id: "CXMI-536", name: "SkillForge" },
-                  { id: "CXMI-542", name: "AI Orchestrator Team" },
+                  { id: "CXMI-531", name: "AI-Assisted Jira Story Creation" },
+                  { id: "CXMI-532", name: "AI-Powered Customer Feedback & Idea Hub" },
                   { id: "CXMI-533", name: "AI-Driven Team Health Dashboard" },
+                  { id: "CXMI-534", name: "AI Incident Post-Mortem Generator" },
+                  { id: "CXMI-535", name: "Claude Code Shared Learning System", tristan: true },
+                  { id: "CXMI-536", name: "SkillForge — Enterprise AI Skill Library" },
+                  { id: "CXMI-537", name: "AI-Powered Impact Analysis Tool" },
+                  { id: "CXMI-538", name: "Internal AI Knowledge-Sharing Platform" },
+                  { id: "CXMI-539", name: "Intelligent QA Assistant" },
+                  { id: "CXMI-540", name: "Phoenix Deployment Integration" },
+                  { id: "CXMI-541", name: "SiteAssistant Bot" },
+                  { id: "CXMI-542", name: "AI Orchestrator Team", tristan: true },
                 ].map((item) => (
                   <div key={item.id} style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(108,99,255,0.2)",
+                    background: item.tristan ? "rgba(108,99,255,0.08)" : "rgba(255,255,255,0.02)",
+                    border: item.tristan ? "1px solid rgba(108,99,255,0.5)" : "1px solid rgba(108,99,255,0.15)",
                     borderRadius: 2,
                     padding: "14px 16px",
                     display: "flex",
                     flexDirection: "column",
                     gap: 4,
+                    position: "relative",
                   }}>
+                    {item.tristan && (
+                      <span style={{
+                        position: "absolute",
+                        top: 8, right: 10,
+                        fontFamily: "'Courier New', monospace",
+                        fontSize: 9,
+                        color: "var(--cyan)",
+                        letterSpacing: "0.1em",
+                        opacity: 0.9,
+                      }}>TRISTAN</span>
+                    )}
                     <span style={{
                       fontFamily: "'Courier New', monospace",
                       fontSize: 10,
-                      color: "var(--indigo)",
+                      color: item.tristan ? "var(--cyan)" : "var(--indigo)",
                       letterSpacing: "0.15em",
                     }}>{item.id}</span>
-                    <span style={{ fontSize: 13, color: "var(--dim)", lineHeight: 1.5 }}>{item.name}</span>
+                    <span style={{ fontSize: 13, color: item.tristan ? "var(--text)" : "var(--dim)", lineHeight: 1.5 }}>{item.name}</span>
                   </div>
                 ))}
               </div>
