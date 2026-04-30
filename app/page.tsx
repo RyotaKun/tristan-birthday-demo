@@ -582,50 +582,77 @@ export default function Home() {
         {/* ── MESSAGE ── */}
         <section style={{
           padding: "80px 24px 96px",
-          textAlign: "center",
           background: "rgba(255,107,53,0.03)",
           borderTop: "1px solid rgba(255,107,53,0.1)",
         }}>
-          <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <SectionHeading label="FROM THE TEAM" color="var(--orange)" />
 
-            {/* Spark decoration */}
-            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 36 }}>
-              {["var(--indigo)", "var(--cyan)", "var(--orange)", "var(--magenta)", "var(--indigo)"].map((c, i) => (
-                <div key={i} style={{
-                  width: 4,
-                  height: 4,
-                  borderRadius: "50%",
-                  background: c,
-                  boxShadow: `0 0 8px ${c}`,
-                  opacity: 0.8,
-                }} />
-              ))}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 16,
+              marginBottom: 56,
+            }}>
+              {[
+                { quote: "Tristan is the rare combination of sharp intellect, calm leadership, and just enough chaos to keep things interesting — basically the guy you want in charge and slightly worried about at the same time." },
+                { quote: "From my first day at Panviva to today at Upland Panviva, Tristan has always been approachable, generous with his knowledge, and someone who makes every conversation valuable." },
+                { quote: "Wishing a fantastic birthday to the one who turns our \"uh-ohs\" into \"aha!\" moments daily.", author: "Parikshit" },
+                { quote: "Tris — you are Heimdall in our universe. Have a great year!!" },
+                { quote: "A person with great domain & technical knowledge, bringing new ideas and improvements to the product and team. Always a motivation to turn our camera on 🙂" },
+                { quote: "A smart trusted technical mind who thinks holistically and executes decisively 🎂" },
+                { quote: "We wouldn't be here today if Tristan didn't push us, show us what AI is capable of. Today we honour that — and the remarkable journey of the person behind it all." },
+                { quote: "Wishing Tristan a very happy birthday and many thanks for being such a supportive teammate." },
+                { quote: "He is highly talented person." },
+              ].map((t, i) => {
+                const colors = ["var(--indigo)", "var(--cyan)", "var(--orange)", "var(--magenta)"];
+                const c = colors[i % colors.length];
+                return (
+                  <div key={i} style={{
+                    background: "rgba(255,255,255,0.02)",
+                    border: `1px solid rgba(255,255,255,0.07)`,
+                    borderTop: `2px solid ${c}`,
+                    borderRadius: 2,
+                    padding: "20px 20px 16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    gap: 12,
+                  }}>
+                    <p style={{
+                      fontSize: 13.5,
+                      fontStyle: "italic",
+                      lineHeight: 1.8,
+                      color: "rgba(240,240,255,0.75)",
+                    }}>
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    {t.author && (
+                      <span style={{
+                        fontFamily: "'Courier New', monospace",
+                        fontSize: 10,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        color: c,
+                        opacity: 0.8,
+                      }}>— {t.author}</span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
-            <blockquote>
+            <div style={{ textAlign: "center" }}>
               <p style={{
-                fontSize: "clamp(18px, 2.5vw, 24px)",
-                fontStyle: "italic",
-                lineHeight: 1.7,
-                color: "rgba(240,240,255,0.85)",
-                marginBottom: 28,
-              }}>
-                &ldquo;We wouldn&apos;t be here today if Tristan didn&apos;t push us,
-                show us what AI is capable of. Today we honour that —
-                and the remarkable journey of the person behind it all.&rdquo;
-              </p>
-              <cite style={{
                 fontFamily: "'Courier New', monospace",
-                fontStyle: "normal",
                 fontSize: 11,
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
                 color: "var(--orange)",
               }}>
                 With respect, pride, and excitement — The Panviva Team
-              </cite>
-            </blockquote>
+              </p>
+            </div>
           </div>
         </section>
 
