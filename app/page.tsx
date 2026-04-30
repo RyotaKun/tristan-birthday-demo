@@ -670,6 +670,66 @@ export default function Home() {
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <SectionHeading label="FROM THE TEAM" color="var(--orange)" />
 
+            {/* Personal tribute */}
+            <div style={{
+              background: "rgba(108,99,255,0.06)",
+              border: "1px solid rgba(108,99,255,0.25)",
+              borderLeft: "4px solid var(--indigo)",
+              borderRadius: 2,
+              padding: "40px 40px 32px",
+              marginBottom: 40,
+              position: "relative",
+            }}>
+              <div style={{
+                position: "absolute",
+                top: 0, left: 0, right: 0,
+                height: 1,
+                background: "linear-gradient(90deg, var(--indigo), transparent)",
+              }} />
+              <p style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 10,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "var(--indigo)",
+                marginBottom: 24,
+                opacity: 0.8,
+              }}>A personal note</p>
+              {[
+                "Tristan is one of those rare people where work and life don't sit in separate boxes.",
+                "We've been side by side since the moment I joined Panviva — not just on projects, but on everything. Work, life, ideas, frustrations, big dreams, stupid ideas that somehow turned into real things. We can spend hours talking about anything, and usually do. We're on each other's toes all the time — and that's exactly why it works.",
+                "I've seen Tristan grow from a developer into the engineer and leader he is today, step by step, never skipping the hard parts. There was no shortcut, no entitlement — just learning, doing, failing, fixing, and doing it again. Seeing that growth up close has been genuinely inspiring.",
+                "But what I respect most isn't just his technical ability. It's who he is as a person.",
+                "I've seen how deeply he cares for his family — always doing whatever it takes, without complaint. Chopping Christmas trees. Driving kids miles to school. Building a farm from scratch. Raising chickens and rabbits. Taking on everything with this quiet \"I'll figure it out\" attitude. No drama. Just responsibility.",
+                "Watching him move his entire family from Australia to Canada is something I'll never forget. That kind of decision — and the courage it takes — is a once‑in‑a‑lifetime journey. He carried it with the same mindset he brings to work: do it properly, take care of people, don't cut corners.",
+                "Professionally, I may help plant seeds — ideas, directions, what could be possible — but Tristan is the one who nurtures them. He turns the seeds into trees. The entire modernisation journey is proof of that. He didn't just talk about it — he made it real, one hard decision at a time.",
+                "We don't even spend enough time talking about how much he's driven our AI journey. That turning point only happened because he pushed, showed us what \"done properly\" looks like, and backed it with real work. Without that, we simply wouldn't be where we are today.",
+                "More than anything, Tristan is a life buddy. Someone I trust deeply. Someone I respect, hands down. Someone I know will always show up — for the work, for the people, and for the things that actually matter.",
+                "Full stop.",
+              ].map((para, i) => (
+                <p key={i} style={{
+                  fontSize: i === 0 ? 17 : 14.5,
+                  fontWeight: i === 0 ? 700 : 400,
+                  lineHeight: 1.85,
+                  color: i === 0 ? "var(--text)" : "rgba(240,240,255,0.75)",
+                  marginBottom: i === 9 ? 0 : 16,
+                  fontStyle: i === 9 ? "normal" : "normal",
+                }}>
+                  {i === 9 ? <strong style={{ color: "var(--text)" }}>{para}</strong> : para}
+                </p>
+              ))}
+              <div style={{ marginTop: 28, display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(108,99,255,0.4), transparent)" }} />
+                <span style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: 11,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--indigo)",
+                }}>— Sang</span>
+              </div>
+            </div>
+
             <div style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
@@ -686,6 +746,12 @@ export default function Home() {
                 { quote: "We wouldn't be here today if Tristan didn't push us, show us what AI is capable of. Today we honour that — and the remarkable journey of the person behind it all." },
                 { quote: "Wishing Tristan a very happy birthday and many thanks for being such a supportive teammate." },
                 { quote: "He is highly talented person." },
+                { quote: "He is always willing to help and teach, works above and beyond to create solutions, and is a great advocate for the team." },
+                { quote: "Standing strong in every moment and solving every challenge with grace, our all-time savior, today we celebrate you. Happy Birthday!" },
+                { quote: "You are the best man, don't know what we would do without you!!" },
+                { quote: "Tristan is an all-rounder — but the best thing I appreciate is he never ignores any request, whether small or large. He doesn't distinguish between tasks or people. A wonderful person to work with." },
+                { quote: "Tristan always makes himself available to provide sagely wisdom wherever it is needed. I don't know where we would be without him." },
+                { quote: "Down to earth personality." },
               ].map((t, i) => {
                 const colors = ["var(--indigo)", "var(--cyan)", "var(--orange)", "var(--magenta)"];
                 const c = colors[i % colors.length];
