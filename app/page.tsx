@@ -370,6 +370,123 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── AI INFLECTION POINT ── */}
+        <section style={{ padding: "100px 24px", position: "relative", overflow: "hidden" }}>
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,245,255,0.05) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <div style={{ maxWidth: 800, margin: "0 auto", position: "relative" }}>
+            <SectionHeading label="THE AI INFLECTION POINT" color="var(--cyan)" />
+
+            {/* Date callout */}
+            <div style={{
+              textAlign: "center",
+              marginBottom: 56,
+            }}>
+              <div style={{
+                display: "inline-block",
+                border: "1px solid rgba(0,245,255,0.3)",
+                borderRadius: 2,
+                padding: "14px 32px",
+                background: "rgba(0,245,255,0.04)",
+              }}>
+                <p style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: 11,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  color: "var(--cyan)",
+                  marginBottom: 6,
+                }}>March 12, 2026 — 10:05 AM</p>
+                <p style={{
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: "var(--text)",
+                }}>&ldquo;Creating a Bright Blue Sky with AI&rdquo;</p>
+              </div>
+            </div>
+
+            <p style={{ fontSize: 16, lineHeight: 1.9, color: "var(--dim)", marginBottom: 24, textAlign: "center" }}>
+              This was not an inspirational talk. It was a <strong style={{ color: "var(--text)" }}>working demonstration</strong> — AI applied
+              responsibly to one of Panviva&apos;s most complex systems. Real architecture. Real data risk. Real results.
+            </p>
+            <p style={{ fontSize: 16, lineHeight: 1.9, color: "var(--dim)", marginBottom: 56, textAlign: "center" }}>
+              Tristan didn&apos;t ask whether AI <em>might</em> be useful. He showed <strong style={{ color: "var(--cyan)" }}>how it already was</strong> — if approached with discipline.
+            </p>
+
+            {/* Wave of initiatives */}
+            <div style={{ marginBottom: 56 }}>
+              <p style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 10,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "var(--orange)",
+                textAlign: "center",
+                marginBottom: 24,
+                opacity: 0.8,
+              }}>The wave that followed</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+                {[
+                  { id: "CXMI-535", name: "Claude Code Shared Learning System" },
+                  { id: "CXMI-541", name: "SiteAssistant Bot" },
+                  { id: "CXMI-536", name: "SkillForge" },
+                  { id: "CXMI-542", name: "AI Orchestrator Team" },
+                  { id: "CXMI-533", name: "AI-Driven Team Health Dashboard" },
+                ].map((item) => (
+                  <div key={item.id} style={{
+                    background: "rgba(255,255,255,0.02)",
+                    border: "1px solid rgba(108,99,255,0.2)",
+                    borderRadius: 2,
+                    padding: "14px 16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 4,
+                  }}>
+                    <span style={{
+                      fontFamily: "'Courier New', monospace",
+                      fontSize: 10,
+                      color: "var(--indigo)",
+                      letterSpacing: "0.15em",
+                    }}>{item.id}</span>
+                    <span style={{ fontSize: 13, color: "var(--dim)", lineHeight: 1.5 }}>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pull quote */}
+            <div style={{
+              borderLeft: "3px solid var(--cyan)",
+              paddingLeft: 24,
+              margin: "0 auto",
+              maxWidth: 620,
+            }}>
+              <p style={{
+                fontSize: "clamp(16px, 2vw, 19px)",
+                fontStyle: "italic",
+                lineHeight: 1.8,
+                color: "rgba(240,240,255,0.8)",
+                marginBottom: 12,
+              }}>
+                &ldquo;If Tristan had not pushed the organisation through that initial conversation —
+                and shown a disciplined, working AI-driven approach — Panviva would not be where it is today.&rdquo;
+              </p>
+              <p style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 10,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--cyan)",
+                opacity: 0.7,
+              }}>The change was driven by thinking, structure, and leadership.</p>
+            </div>
+          </div>
+        </section>
+
         {/* ── GLOBAL MOMENT ── */}
         <section style={{
           padding: "100px 24px",
