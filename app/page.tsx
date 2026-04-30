@@ -1,150 +1,342 @@
+import { Playfair_Display, Libre_Baskerville } from "next/font/google";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-baskerville",
+  display: "swap",
+});
+
+const milestones = [
+  {
+    label: "Before Tech",
+    title: "Chef",
+    body: "Tristan started his career in the kitchen — no formal tech background, just curiosity and an appetite for hard problems.",
+  },
+  {
+    label: "2017",
+    title: "Panviva — Support Engineer",
+    body: "Entered Panviva through the support team. Learned the product from the ground up: production issues, customer pain, operational reality before code.",
+  },
+  {
+    label: "2018–2021",
+    title: "Developer → Senior Developer → Tech Lead",
+    body: "Self-driven through real-world problems. Grew into technical leadership by solving the hard, unglamorous foundations: TLS, app server reliability, platform compatibility.",
+  },
+  {
+    label: "2022–2023",
+    title: "Architect — Core Modernisation",
+    body: "Led the architectural breakthroughs that made Core Modernisation possible: decoupled document type from layout, enforced forward-only design, and enabled safe transformation of a legacy system.",
+  },
+  {
+    label: "2024",
+    title: "AKS & Containerisation (Phoenix)",
+    body: "Drove Panviva's Kubernetes journey end-to-end — Helm orchestration, secrets management, environment parity from Dev to Prod. Not just working, but operationally sane.",
+  },
+  {
+    label: "2025–2026",
+    title: "Principal Engineer & AI Champion",
+    body: "Authored ADR-037, presented \u201cCreating a Bright Blue Sky with AI\u201d, and proved that AI multiplies good engineering. It doesn\u2019t replace it.",
+  },
+];
+
+const attributes = [
+  {
+    numeral: "I",
+    title: "Systems Thinker",
+    body: "Balances content, identity, infrastructure, and migration semantics simultaneously. Never optimises one layer at the expense of another.",
+  },
+  {
+    numeral: "II",
+    title: "AI Pioneer",
+    body: "One of the first at Upland to wield AI as a real engineering tool — planning, architecture review, migration reasoning. His motto: AI multiplies good engineering.",
+  },
+  {
+    numeral: "III",
+    title: "Security Champion",
+    body: "Short-lived purpose-specific JWTs, closed multi-tenant data risks, unified auth — security evolved with the platform, not as an afterthought.",
+  },
+  {
+    numeral: "IV",
+    title: "Self-Made Engineer",
+    body: "No formal CS degree. Chef → support → developer → principal engineer. Proof that non-traditional paths create exceptional engineers.",
+  },
+  {
+    numeral: "V",
+    title: "Mentor & Leader",
+    body: "Low ceremony, high signal. Advocates strongly for growing engineers internally — because that was once his own path.",
+  },
+  {
+    numeral: "VI",
+    title: "Big Life Moves",
+    body: "Melbourne → Townsville → Canada. Navigated major transitions while sustaining technical excellence. Family always comes first.",
+  },
+];
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white">
-      {/* Hero */}
-      <section className="relative flex flex-col items-center justify-center text-center px-6 pt-24 pb-16">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute top-40 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+    <main
+      className={`${playfair.variable} ${baskerville.variable}`}
+      style={{
+        backgroundColor: "#0e0e0e",
+        color: "#e8e0d4",
+        fontFamily: "var(--font-baskerville), Georgia, serif",
+        minHeight: "100vh",
+      }}
+    >
+      {/* ── Gold rule top ── */}
+      <div style={{ height: 3, background: "linear-gradient(90deg, transparent, #C4922A 30%, #E8B84B 50%, #C4922A 70%, transparent)" }} />
+
+      {/* ── Hero ── */}
+      <header style={{ maxWidth: 820, margin: "0 auto", padding: "88px 32px 72px", textAlign: "center" }}>
+        <p style={{
+          fontFamily: "var(--font-baskerville), Georgia, serif",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          fontSize: 11,
+          color: "#C4922A",
+          marginBottom: 32,
+          fontStyle: "italic",
+        }}>
+          30 April · 2026
+        </p>
+
+        <h1 style={{
+          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+          fontSize: "clamp(52px, 9vw, 96px)",
+          fontWeight: 700,
+          lineHeight: 1.05,
+          letterSpacing: "-0.02em",
+          color: "#f5ede0",
+          margin: 0,
+          marginBottom: 8,
+        }}>
+          Tristan McSwain
+        </h1>
+
+        <p style={{
+          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+          fontSize: "clamp(16px, 2.5vw, 22px)",
+          fontStyle: "italic",
+          color: "#C4922A",
+          letterSpacing: "0.04em",
+          marginBottom: 32,
+        }}>
+          Principal Engineer · Panviva
+        </p>
+
+        {/* Decorative rule */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 36 }}>
+          <div style={{ flex: 1, maxWidth: 120, height: 1, background: "#C4922A", opacity: 0.4 }} />
+          <div style={{ width: 6, height: 6, background: "#C4922A", transform: "rotate(45deg)" }} />
+          <div style={{ flex: 1, maxWidth: 120, height: 1, background: "#C4922A", opacity: 0.4 }} />
         </div>
 
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <p className="text-blue-400 font-medium tracking-widest uppercase text-sm mb-4">
-            🎂 Happy Birthday — April 30, 2026
-          </p>
-          <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-300 bg-clip-text text-transparent">
-            Tristan McSwain
-          </h1>
-          <p className="text-xl sm:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            From chef to Principal Engineer — the architect who modernised Panviva Core,
-            containerised it on AKS, and showed the whole team what AI is truly capable of.
-          </p>
-          <div className="mt-8 inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-5 py-2 text-blue-300 text-sm">
-            <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-            Ask the bot anything about Tristan ↘
+        <p style={{
+          fontSize: "clamp(15px, 2vw, 19px)",
+          lineHeight: 1.75,
+          color: "#c2b89e",
+          maxWidth: 620,
+          margin: "0 auto",
+        }}>
+          From chef to Principal Engineer — the architect who modernised Panviva Core,
+          containerised it on AKS, and showed the whole team what AI is truly capable of.
+        </p>
+      </header>
+
+      {/* ── Timeline ── */}
+      <section style={{ maxWidth: 760, margin: "0 auto", padding: "0 32px 96px" }}>
+        <SectionHeading>The Journey</SectionHeading>
+
+        <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          {milestones.map((m, i) => (
+            <li
+              key={i}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "140px 1px 1fr",
+                gap: "0 28px",
+                marginBottom: i < milestones.length - 1 ? 0 : 0,
+              }}
+            >
+              {/* Year label */}
+              <div style={{ paddingTop: 2, paddingBottom: 32, textAlign: "right" }}>
+                <span style={{
+                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+                  fontSize: 13,
+                  fontStyle: "italic",
+                  color: "#C4922A",
+                  letterSpacing: "0.03em",
+                }}>
+                  {m.label}
+                </span>
+              </div>
+
+              {/* Timeline spine */}
+              <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#C4922A", flexShrink: 0, marginTop: 4 }} />
+                {i < milestones.length - 1 && (
+                  <div style={{ flex: 1, width: 1, background: "linear-gradient(to bottom, #C4922A44, #C4922A11)", minHeight: 48 }} />
+                )}
+              </div>
+
+              {/* Content */}
+              <div style={{ paddingBottom: 40 }}>
+                <h3 style={{
+                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#f0e8d8",
+                  margin: "0 0 8px",
+                  lineHeight: 1.3,
+                }}>
+                  {m.title}
+                </h3>
+                <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.8, color: "#9e9080" }}>
+                  {m.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ── Attributes grid ── */}
+      <section style={{ background: "#131210", padding: "80px 32px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <SectionHeading>What Makes Tristan Remarkable</SectionHeading>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: 1,
+            border: "1px solid #2a2520",
+            overflow: "hidden",
+          }}>
+            {attributes.map((a, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "36px 28px",
+                  borderRight: "1px solid #2a2520",
+                  borderBottom: "1px solid #2a2520",
+                  position: "relative",
+                }}
+              >
+                <span style={{
+                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+                  fontSize: 11,
+                  color: "#C4922A",
+                  letterSpacing: "0.15em",
+                  display: "block",
+                  marginBottom: 12,
+                  opacity: 0.8,
+                }}>
+                  {a.numeral}
+                </span>
+                <h3 style={{
+                  fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+                  fontSize: 16,
+                  fontWeight: 700,
+                  color: "#f0e8d8",
+                  margin: "0 0 10px",
+                }}>
+                  {a.title}
+                </h3>
+                <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.8, color: "#7d7060" }}>
+                  {a.body}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Journey Timeline */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-white">The Journey</h2>
-        <div className="relative border-l-2 border-blue-500/30 ml-4 space-y-10">
-          {[
-            {
-              year: "Before Tech",
-              title: "Chef",
-              desc: "Tristan started his career in the kitchen — no formal tech background, just curiosity and drive.",
-              color: "bg-amber-400",
-            },
-            {
-              year: "2017",
-              title: "Joined Panviva — Support Engineer",
-              desc: "Entered Panviva through the support team. Learned the product from the ground up: production issues, customer pain, operational reality before code.",
-              color: "bg-blue-400",
-            },
-            {
-              year: "2018–2021",
-              title: "Developer → Senior Developer → Tech Lead",
-              desc: "Self-driven learning through real-world problems. Grew into technical leadership by solving the hard, unglamorous foundations: TLS, app server reliability, platform compatibility.",
-              color: "bg-indigo-400",
-            },
-            {
-              year: "2022–2023",
-              title: "Architect — Core Modernisation",
-              desc: "Led the architectural breakthroughs that made Core Modernisation possible: decoupled document type from layout, enforced forward-only design, and enabled safe, controlled transformation of a legacy system.",
-              color: "bg-violet-400",
-            },
-            {
-              year: "2024",
-              title: "AKS & Containerisation (Phoenix)",
-              desc: "Drove Panviva's Kubernetes journey end-to-end — Helm orchestration, secrets management, environment parity from Dev to Prod. Not just 'working', but operationally sane and scalable.",
-              color: "bg-cyan-400",
-            },
-            {
-              year: "2025–2026",
-              title: "Principal Engineer & AI Champion",
-              desc: "Authored the AI Sidekick widget architecture (ADR-037), presented 'Creating a Bright Blue Sky with AI', and proved that AI multiplies good engineering — it doesn't replace it.",
-              color: "bg-emerald-400",
-            },
-          ].map((item) => (
-            <div key={item.year} className="relative pl-10">
-              <div
-                className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full ${item.color} ring-4 ring-slate-900`}
-              />
-              <p className="text-xs font-semibold tracking-widest uppercase text-slate-400 mb-1">
-                {item.year}
-              </p>
-              <h3 className="text-lg font-bold text-white mb-1">{item.title}</h3>
-              <p className="text-slate-400 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
+      {/* ── Quote ── */}
+      <section style={{ maxWidth: 700, margin: "0 auto", padding: "96px 32px 80px", textAlign: "center" }}>
+        <div style={{ marginBottom: 28 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 28 }}>
+            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "#C4922A", opacity: 0.3 }} />
+            <div style={{ width: 5, height: 5, background: "#C4922A", transform: "rotate(45deg)" }} />
+            <div style={{ flex: 1, maxWidth: 80, height: 1, background: "#C4922A", opacity: 0.3 }} />
+          </div>
         </div>
+
+        <blockquote style={{ margin: 0 }}>
+          <p style={{
+            fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+            fontSize: "clamp(20px, 3vw, 28px)",
+            fontStyle: "italic",
+            lineHeight: 1.65,
+            color: "#d8cfc2",
+            margin: "0 0 28px",
+          }}>
+            "We wouldn't be here today if Tristan didn't push us,
+            show us what AI is capable of. Today we honour that —
+            and the remarkable journey of the person behind it all."
+          </p>
+          <cite style={{
+            display: "block",
+            fontStyle: "normal",
+            fontSize: 12,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "#C4922A",
+          }}>
+            The Panviva Team
+          </cite>
+        </blockquote>
       </section>
 
-      {/* Highlights */}
-      <section className="max-w-5xl mx-auto px-6 py-12">
-        <h2 className="text-3xl font-bold text-center mb-10 text-white">What Makes Tristan Remarkable</h2>
-        <div className="grid sm:grid-cols-3 gap-6">
-          {[
-            {
-              icon: "🏗️",
-              title: "Systems Thinker",
-              desc: "Balances content, identity, infrastructure, and migration semantics simultaneously. Never optimises one layer at the expense of another.",
-            },
-            {
-              icon: "🤖",
-              title: "AI Pioneer",
-              desc: "One of the first at Upland to use AI as a real engineering tool — planning, architecture review, migration reasoning. His motto: AI multiplies good engineering.",
-            },
-            {
-              icon: "🌏",
-              title: "Big Life Moves",
-              desc: "Melbourne → Townsville → Canada. Navigated major personal transitions while sustaining technical excellence. Family always comes first.",
-            },
-            {
-              icon: "🔐",
-              title: "Security Champion",
-              desc: "Introduced short-lived purpose-specific JWTs, closed multi-tenant data risks, and unified auth — security evolved with the platform, not as an afterthought.",
-            },
-            {
-              icon: "🎓",
-              title: "Self-Made Engineer",
-              desc: "No formal CS degree. Chef → support → developer → principal engineer. Proof that non-traditional paths create exceptional engineers.",
-            },
-            {
-              icon: "🤝",
-              title: "Mentor & Leader",
-              desc: "Low ceremony, high signal. Advocates strongly for growing engineers internally — because that was once his own path.",
-            },
-          ].map((card) => (
-            <div
-              key={card.title}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors"
-            >
-              <div className="text-3xl mb-3">{card.icon}</div>
-              <h3 className="font-bold text-white mb-2">{card.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{card.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Happy Birthday closer ── */}
+      <div style={{ textAlign: "center", padding: "0 32px 80px" }}>
+        <p style={{
+          fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+          fontSize: "clamp(32px, 5vw, 52px)",
+          fontWeight: 700,
+          color: "#C4922A",
+          letterSpacing: "-0.01em",
+          margin: 0,
+        }}>
+          Happy Birthday, Tristan.
+        </p>
+      </div>
 
-      {/* Birthday message */}
-      <section className="max-w-3xl mx-auto px-6 py-16 text-center">
-        <div className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-400/20 rounded-3xl p-10">
-          <p className="text-4xl mb-6">🎉</p>
-          <blockquote className="text-xl text-slate-200 italic leading-relaxed mb-6">
-            "We wouldn't be here today if Tristan didn't push us, show us what AI is capable of.
-            Today we honour that — and the remarkable journey of the person behind it all."
-          </blockquote>
-          <p className="text-blue-400 font-medium">Happy Birthday, Tristan. — The Panviva Team</p>
-        </div>
-      </section>
+      {/* ── Gold rule bottom ── */}
+      <div style={{ height: 3, background: "linear-gradient(90deg, transparent, #C4922A 30%, #E8B84B 50%, #C4922A 70%, transparent)" }} />
 
-      <footer className="text-center pb-10 text-slate-600 text-sm">
-        Built with the SiteAssistant Bot — powered by Claude
+      <footer style={{ textAlign: "center", padding: "20px 32px", fontSize: 11, color: "#3a3530", letterSpacing: "0.1em" }}>
+        Built with the SiteAssistant Bot · Powered by Claude
       </footer>
+    </main>
+  );
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ textAlign: "center", marginBottom: 56 }}>
+      <h2 style={{
+        fontFamily: "var(--font-playfair), 'Playfair Display', Georgia, serif",
+        fontSize: "clamp(22px, 3.5vw, 32px)",
+        fontWeight: 700,
+        color: "#f0e8d8",
+        margin: "0 0 16px",
+        letterSpacing: "-0.01em",
+      }}>
+        {children}
+      </h2>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "center" }}>
+        <div style={{ width: 40, height: 1, background: "#C4922A", opacity: 0.4 }} />
+        <div style={{ width: 4, height: 4, background: "#C4922A", transform: "rotate(45deg)" }} />
+        <div style={{ width: 40, height: 1, background: "#C4922A", opacity: 0.4 }} />
+      </div>
     </div>
   );
 }
