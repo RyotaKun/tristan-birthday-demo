@@ -537,12 +537,12 @@ export default function Home() {
               <ellipse cx="140" cy="105" rx="87" ry="15" stroke="rgba(108,99,255,0.12)" strokeWidth="1" />
               {/* Glowing nodes */}
               {[
-                { cx: 100, cy: 65, c: "var(--indigo)" },
-                { cx: 180, cy: 70, c: "var(--cyan)" },
-                { cx: 140, cy: 90, c: "var(--orange)" },
-                { cx: 80, cy: 95, c: "var(--magenta)" },
-                { cx: 200, cy: 55, c: "var(--cyan)" },
-                { cx: 155, cy: 50, c: "var(--indigo)" },
+                { cx: 100, cy: 65, c: "#6C63FF" },
+                { cx: 180, cy: 70, c: "#00F5FF" },
+                { cx: 140, cy: 90, c: "#FF6B35" },
+                { cx: 80, cy: 95, c: "#FF006E" },
+                { cx: 200, cy: 55, c: "#00F5FF" },
+                { cx: 155, cy: 50, c: "#6C63FF" },
               ].map((n, i) => (
                 <g key={i}>
                   <circle cx={n.cx} cy={n.cy} r="8" fill={n.c} opacity="0.15" />
